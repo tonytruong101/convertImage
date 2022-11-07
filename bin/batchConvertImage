@@ -1,0 +1,56 @@
+#!/bin/sh
+
+set -e
+
+#Exit script on failure of any command
+set -e
+
+BOLD=$(tput bold)
+NORMAL=$(tput sgr0)
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+OLD_FORMAT=$2
+NEW_FORMAT=$3
+VERSION='v1.0.0'
+CONTACT='tonytruong873@gmail.com'
+DOCS=https://github.com/tonytruong101/convertImage
+TITLE_APP='convertImage'
+TITLE_MAINTAINER='Maintainer Contact:'
+TITLE_DESCRIPTION='Description:'
+TMP_IMAGE_FILES='./tmp/images/'
+STEP=2
+VERBOSE_TAG_1=$infoMsg
+VERBOSE_TAG_2=$errorMsg
+VERBOSE_TAG_3=$warningMsg
+VERBOSE_TAG_4=$successMsg
+
+errorMsg=$(
+    echo $RED"[  ERROR]"$NC
+)
+
+infoMsg=$(
+    echo ${BOLD}"[   INFO]"${NORMAL}
+)
+
+warningMsg=$(
+    echo $YELLOW"[WARNING]"$NC
+    )
+
+successMsg=$(
+    echo $GREEN"[SUCCESS]"$NC
+)
+
+
+if [[ -z $2 ]]; then 
+   echo ${BOLD} "$VERBOSE_TAG_3 ${NORMAL} Whoops, please provide old format of the image followed by the new format of the images"
+   echo ${BOLD} "$VERBOSE_TAG_1 ${NORMAL} Usage: convertImage --convert-file <old_image.format> <new_image.format>"
+else
+   echo ${BOLD} "$VERBOSE_TAG_1 ${NORMAL} Creating tmp directory for the new converted images.......................................[1/$STEP]"
+   mkdir -p $TMP_IMAGE_FILES
+   echo ${BOLD} "$VERBOSE_TAG_1 ${NORMAL} tmp directory created converted images will be found at $TMP_IMAGE_FILES..................[1/$STEP]"
+   echo ${BOLD} "$VERBOSE_TAG_1 ${NORMAL} Starting Batch Convert Process............................................................[2/$STEP]"
+   mogrify -format $OLD_FORMAT  -quality 100 -path $TMP_IMAGE_FILES *.$NEW_FORMAT
+   echo ${BOLD} "$VERBOSE_TAG_1 ${NORMAL} Batch image convert Process completed.....................................................[2/$STEP]"
+fi

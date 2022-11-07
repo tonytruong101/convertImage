@@ -54,10 +54,10 @@ if [[ -z $1  ]]; then
    echo   "dockerize it! A better cli tool for docker image related commands" 
    printf "\n"
    echo   ${BOLD}   "List of commands:" ${NORMAL}
-   echo   "( -cf|--convert-format)  Convert an image file format"
-   echo   "( -rz|--resize-image)    Resizes an image"
-   echo   "( -rt|--rotate-image)    Rotates an image"
-   echo   "( -bp|--batch-process)   Various batch processing CMDs."
+   echo   "( -cf|--convert-format)       Convert an image file format"
+   echo   "(-bcf|--batch-convert-files)  Batch Convert image file format"
+   echo   "( -rz|--resize-image)         Resizes an image"
+   echo   "( -rt|--rotate-image)         Rotates an image"
    printf "\n"
    printf "\n"
    echo   "Stuck? Need help troubleshooting? For a full guide of how this application works"
@@ -67,6 +67,8 @@ if [[ -z $1  ]]; then
 
 elif [[ $USER_PROMPT =~ ^(-cf|--convert-file)$  ]]; then
    source ./bin/convertFile
+elif [[ $USER_PROMPT =~ ^(-bcf|--batch-convert-file)$  ]]; then
+   source ./bin/batchConvertImage
 else
    echo "exiting..."
 fi
