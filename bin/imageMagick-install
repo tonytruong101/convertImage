@@ -1,0 +1,75 @@
+#!/bin/sh
+
+#Exit script on failure of any command
+set -e
+
+BOLD=$(tput bold)
+NORMAL=$(tput sgr0)
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+USER_PROMPT=$1
+USER_PROMPT2=$2
+VERSION='v1.0.0'
+CONTACT='tonytruong873@gmail.com'
+DOCS=https://github.com/tonytruong101/convertImage
+TITLE_APP='convertImage'
+TITLE_MAINTAINER='Maintainer Contact:'
+TITLE_DESCRIPTION='Description:'
+STEP=2
+
+errorMsg=$(
+    echo $RED"[  ERROR]"$NC
+)
+
+infoMsg=$(
+    echo ${BOLD}"[   INFO]"${NORMAL}
+)
+
+warningMsg=$(
+    echo $YELLOW"[WARNING]"$NC
+    )
+
+successMsg=$(
+    echo $GREEN"[SUCCESS]"$NC
+)
+
+
+VERBOSE_TAG_1=$infoMsg
+VERBOSE_TAG_2=$errorMsg
+VERBOSE_TAG_3=$warningMsg
+VERBOSE_TAG_4=$successMsg
+
+
+echo ${BOLD} "$VERBOSE_TAG_3 ${NORMAL} Starting imageMagick install..."
+   
+read -p "${BOLD} $VERBOSE_TAG_3  Choose your install mac, windows or linux?: m/w/l " -n 1 -r
+
+if [[ $REPLY =~ ^[Mm]$ ]]; then
+    printf ${NORMAL}"\n"
+    echo   ${BOLD}"$VERBOSE_TAG_1 Proceeding with mac install of imageMagick...[1/$STEP]"
+    printf ${NORMAL}"\n"
+    brew install imageMagick
+    printf ${NORMAL}"\n"
+    echo   ${BOLD}"$VERBOSE_TAG_4 imageMagick has been installed succesfully....[2/$STEP]"
+elif [[ $REPLY =~ ^[Ww]$ ]]; then
+    printf ${NORMAL}"\n"
+    echo   ${BOLD}"$VERBOSE_TAG_1 Proceeding with windows install of imageMagick...[1/$STEP]"
+    printf ${NORMAL}"\n"
+    sudo apt-install imageMagick
+    printf ${NORMAL}"\n"
+    echo   ${BOLD}"$VERBOSE_TAG_4 imageMagick has been installed succesfully....[2/$STEP]"
+
+elif [[ $REPLY =~ ^[Ll]$ ]]; then
+    printf ${NORMAL}"\n"
+    echo   ${BOLD}"$VERBOSE_TAG_1 Proceeding with linux install of imageMagick...[1/$STEP]"
+    printf ${NORMAL}"\n"
+    sudo apt-install imageMagick
+    printf ${NORMAL}"\n"
+    echo   ${BOLD}"$VERBOSE_TAG_4 imageMagick has been installed succesfully....[2/$STEP]"
+
+else
+    echo "Exiting..."
+fi
+
